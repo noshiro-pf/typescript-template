@@ -5,13 +5,13 @@ await assertExt({
   directories: [
     {
       path: path.resolve(projectRootPath, './src'),
-      extension: '.d.mts',
-      ignorePatterns: ['tsconfig.json', 'globals.d.mts'],
+      extension: '.mts',
+      ignorePatterns: ['globals.d.mts'],
     },
     {
       path: path.resolve(projectRootPath, './scripts'),
       extension: '.mts',
-      ignorePatterns: ['tsconfig.json'],
+      ignorePatterns: [],
     },
   ],
 });
