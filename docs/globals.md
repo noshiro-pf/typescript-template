@@ -1,7 +1,7 @@
-[**Documentation**](README.md)
+[**typescript-template**](README.md)
 
 ---
 
-[Documentation](README.md) / globals
+[typescript-template](README.md) / globals
 
 # globals

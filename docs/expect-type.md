@@ -1,8 +1,8 @@
-[**Documentation**](README.md)
+[**typescript-template**](README.md)
 
 ---
 
-[Documentation](README.md) / expect-type
+[typescript-template](README.md) / expect-type
 
 # expect-type
 
