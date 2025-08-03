@@ -1,8 +1,10 @@
-**Documentation**
+**typescript-template**
 
 ---
 
-# Documentation
+# typescript-template
+
+Template Repository for TypeScript
 
 ## Modules
 
