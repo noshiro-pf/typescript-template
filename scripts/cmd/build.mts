@@ -1,4 +1,3 @@
-import { Result } from 'ts-data-forge';
 import { assertPathExists } from 'ts-repo-utils';
 import { projectRootPath } from '../project-root-path.mjs';
 
@@ -11,8 +10,11 @@ const build = async (): Promise<void> => {
   echo('Starting build process...\n');
 
   // Step 1: Validate file extensions
-  echo('1. Checking file extensions...');
-  await $('npm run check:ext');
+  {
+    echo('1. Checking file extensions...');
+    await runCmdStep('npm run check:ext', 'Checking file extensions failed');
+    echo('✓ File extensions validated\n');
+  }
 
   // Step 2: Clean previous build
   {
@@ -119,7 +121,7 @@ const runCmdStep = async (cmd: string, errorMsg: string): Promise<void> => {
 };
 
 const runStep = async (
-  promise: Promise<Result.Base>,
+  promise: Promise<Result<unknown, unknown>>,
   errorMsg: string,
 ): Promise<void> => {
   const result = await promise;
