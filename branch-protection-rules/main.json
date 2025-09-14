@@ -60,15 +60,15 @@
             "integration_id": 15368
           },
           {
-            "context": "type-check (build)",
+            "context": "lint-and-build (build)",
             "integration_id": 15368
           },
           {
-            "context": "type-check (test:cov)",
+            "context": "lint-and-build (lint:fix)",
             "integration_id": 15368
           },
           {
-            "context": "type-check (lint:fix)",
+            "context": "test",
             "integration_id": 15368
           }
         ]
