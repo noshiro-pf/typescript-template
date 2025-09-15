@@ -1,0 +1,44 @@
+{
+  "id": 6084586,
+  "name": "develop",
+  "target": "branch",
+  "source_type": "Repository",
+  "source": "noshiro-pf/typescript-template",
+  "enforcement": "active",
+  "bypass_actors": [
+    {
+      "actor_id": 5,
+      "actor_type": "RepositoryRole",
+      "bypass_mode": "always"
+    }
+  ],
+  "current_user_can_bypass": "always",
+  "node_id": "RRS_lACqUmVwb3NpdG9yec47v8NdzgBc1-o",
+  "_links": {
+    "self": {
+      "href": "https://api.github.com/repos/noshiro-pf/typescript-template/rulesets/6084586"
+    },
+    "html": {
+      "href": "https://github.com/noshiro-pf/typescript-template/rules/6084586"
+    }
+  },
+  "conditions": {
+    "ref_name": {
+      "exclude": [],
+      "include": ["refs/heads/develop"]
+    }
+  },
+  "rules": [
+    {
+      "type": "deletion"
+    },
+    {
+      "type": "non_fast_forward"
+    },
+    {
+      "type": "creation"
+    }
+  ],
+  "created_at": "2025-06-15T21:54:35.651+09:00",
+  "updated_at": "2025-06-15T21:55:37.171+09:00"
+}
