@@ -17,11 +17,11 @@
     ".": {
       "import": {
         "types": "./dist/types.d.mts",
-        "default": "./dist/index.mjs"
+        "default": "./dist/entry-point.mjs"
       }
     }
   },
-  "module": "./dist/index.mjs",
+  "module": "./dist/entry-point.mjs",
   "types": "./dist/types.d.mts",
   "files": [
     "src",
