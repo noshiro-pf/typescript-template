@@ -10,7 +10,7 @@ Template Repository for TypeScript
 
 1. Copy `.env.example` to `.env` and set Personal Access Token with `repo` access.
 2. Run `npm run gh:apply-all` to update GitHub Repository Settings.
-3. Set secrets on [GUI settings page](https://github.com/noshiro-pf/octokit-safe-types/settings/secrets/actions).
+3. Set secrets on the GUI settings page (<https://github.com/{owner}/{repo}/settings/secrets/actions>).
     - `NPM_TOKEN`
         - Open <https://www.npmjs.com/settings/{your-user-id}/tokens> -> Generate New Token -> Classic Token -> Select `Automation` and generate.
         - Required for semantic-release to run npm publish
