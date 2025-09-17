@@ -68,7 +68,7 @@ for (const ruleset of rulesetsToCreate) {
     await fs.writeFile(path.resolve(rulesetsDir, `${rule.name}.json`), str);
 
     await fs.writeFile(
-      path.resolve(path.resolve(rulesetsDir, './bk'), `${rule.name}.json`),
+      path.resolve(rulesetsDir, `./bk/${rule.name}.json`),
       str,
     );
   }
