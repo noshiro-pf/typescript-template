@@ -1,8 +1,9 @@
 import {
-  type FullRepository,
+  FullRepository,
   type UpdateRepositoryRequest,
 } from 'octokit-safe-types';
 import { expectType } from 'ts-data-forge';
+import * as t from 'ts-fortress';
 
 const keysToPickBase = [
   'allow_auto_merge',
@@ -32,7 +33,7 @@ const keysToPickBase = [
   'web_commit_signoff_required',
 ] as const satisfies readonly (keyof FullRepository)[];
 
-const keysToDrop: ReadonlySet<(typeof keysToPickBase)[number]> = new Set([
+const keysToDropList = [
   'name',
   'private',
   'description',
@@ -44,12 +45,25 @@ const keysToDrop: ReadonlySet<(typeof keysToPickBase)[number]> = new Set([
 
   // NOTE: "RequestError [HttpError]: Allow forks can only be changed on org-owned repositories"
   'allow_forking',
-] as const);
+] as const;
+
+const keysToDrop: ReadonlySet<(typeof keysToPickBase)[number]> = new Set(
+  keysToDropList satisfies readonly (typeof keysToPickBase)[number][],
+);
 
 export const repositoryKeysToPick = keysToPickBase.filter(
   (k) => !keysToDrop.has(k),
 );
 
-type KeysToPick = (typeof keysToPickBase)[number];
+export type RepositoryKeysToPick = StrictExclude<
+  (typeof keysToPickBase)[number],
+  (typeof keysToDropList)[number]
+>;
 
-expectType<keyof UpdateRepositoryRequest, KeysToPick>('=');
+expectType<keyof UpdateRepositoryRequest, RepositoryKeysToPick>('>=');
+
+export const RepositoryPicked = t.pick(FullRepository, repositoryKeysToPick, {
+  allowExcessProperties: true,
+});
+
+export type RepositoryPicked = t.TypeOf<typeof RepositoryPicked>;

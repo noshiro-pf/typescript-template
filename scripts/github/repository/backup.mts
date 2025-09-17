@@ -15,11 +15,13 @@ export const backupRepositorySettings = async (fmt: boolean = true) => {
 
   const repositorySettings = await getRepositorySettings();
 
-  const picked = Obj.pick(repositorySettings, repositoryKeysToPick);
-
   await fs.writeFile(
     path.resolve(backupDir, repositorySettingsJsonName),
-    JSON.stringify(picked, undefined, 2),
+    JSON.stringify(
+      Obj.pick(repositorySettings, repositoryKeysToPick),
+      undefined,
+      2,
+    ),
   );
 
   if (fmt) {

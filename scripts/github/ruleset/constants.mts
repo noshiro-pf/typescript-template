@@ -1,11 +1,12 @@
 import {
+  RepositoryRuleset,
   type CreateRulesetRequest,
-  type RepositoryRuleset,
   type UpdateRulesetRequest,
 } from 'octokit-safe-types';
 import { expectType } from 'ts-data-forge';
+import * as t from 'ts-fortress';
 
-const keysToPickBase = [
+export const rulesetKeysToPick = [
   'id',
   'name',
   'target',
@@ -15,15 +16,13 @@ const keysToPickBase = [
   'rules',
 ] as const satisfies readonly (keyof RepositoryRuleset)[];
 
-const keysToDrop: ReadonlySet<(typeof keysToPickBase)[number]> = new Set(
-  [] as const,
-);
-
-export const rulesetKeysToPick = keysToPickBase.filter(
-  (k) => !keysToDrop.has(k),
-);
-
-type KeysToPick = (typeof keysToPickBase)[number];
+type KeysToPick = (typeof rulesetKeysToPick)[number];
 
 expectType<keyof UpdateRulesetRequest | 'id', KeysToPick>('=');
 expectType<keyof CreateRulesetRequest, keyof UpdateRulesetRequest>('=');
+
+export const RulesetPicked = t.pick(RepositoryRuleset, rulesetKeysToPick, {
+  allowExcessProperties: true,
+});
+
+export type RulesetPicked = t.TypeOf<typeof RulesetPicked>;
