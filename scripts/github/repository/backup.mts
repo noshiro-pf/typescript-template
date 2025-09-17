@@ -1,3 +1,4 @@
+import { Obj } from 'ts-data-forge';
 import 'ts-repo-utils';
 import { mkdirClean } from '../../utils.mjs';
 import {
@@ -5,6 +6,7 @@ import {
   repositorySettingsJsonName,
 } from '../constants.mjs';
 import { getRepositorySettings } from './api/index.mjs';
+import { repositoryKeysToPick } from './constants.mjs';
 
 const backupDir = path.resolve(repositorySettingsDir, './bk');
 
@@ -13,9 +15,11 @@ export const backupRepositorySettings = async (fmt: boolean = true) => {
 
   const repositorySettings = await getRepositorySettings();
 
+  const picked = Obj.pick(repositorySettings, repositoryKeysToPick);
+
   await fs.writeFile(
     path.resolve(backupDir, repositorySettingsJsonName),
-    JSON.stringify(repositorySettings, undefined, 2),
+    JSON.stringify(picked, undefined, 2),
   );
 
   if (fmt) {

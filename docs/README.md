@@ -19,6 +19,9 @@ Template Repository for TypeScript
         - Required for `@semantic-release/git` to perform a git commit to the main branch
     - `DEPENDABOT_AUTO_MERGE_BOT_PRIVATE_KEY`
         - <https://github.com/apps/dependabot-auto-merge-permissions> -> App settings -> Generate a private key
+    - `PERSONAL_ACCESS_TOKEN`
+        - The same value as `1.`
+        - Required for `.github/workflows/backup-repository-settings.yml` to run
 
 ## Modules
 

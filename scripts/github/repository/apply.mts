@@ -1,4 +1,5 @@
 import { FullRepository } from 'octokit-safe-types';
+import { Obj } from 'ts-data-forge';
 import { validationErrorsToMessages } from 'ts-fortress';
 import 'ts-repo-utils';
 import {
@@ -7,6 +8,7 @@ import {
 } from '../constants.mjs';
 import { getRepositorySettings, updateRepository } from './api/index.mjs';
 import { backupRepositorySettings } from './backup.mjs';
+import { repositoryKeysToPick } from './constants.mjs';
 
 const readSettings = async (): Promise<FullRepository> => {
   const settingsText = await fs.readFile(
@@ -68,7 +70,11 @@ await updateRepository({
 
   await fs.writeFile(
     path.resolve(repositorySettingsDir, repositorySettingsJsonName),
-    JSON.stringify(repositorySettings, undefined, 2),
+    JSON.stringify(
+      Obj.pick(repositorySettings, repositoryKeysToPick),
+      undefined,
+      2,
+    ),
   );
 
   await $('npm run fmt');
