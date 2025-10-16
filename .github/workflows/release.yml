@@ -37,7 +37,7 @@ jobs:
         id: setup_node_id
         with:
           node-version: 25.0.0
-          cache: "pnpm"
+          cache: 'pnpm'
 
       - name: Install dependencies
         run: pnpm install
