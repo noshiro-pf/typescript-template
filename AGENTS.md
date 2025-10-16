@@ -11,13 +11,13 @@
 
 ## Build, Test, and Development Commands
 
-- `npm run build` — Rollup build into `dist/`.
-- `npm run type-check` — TypeScript type checking (no emit).
-- `npm run test` — Run Vitest once. `testw` for watch, `test:ui` for UI, `test:cov` for coverage, `test:cov:ui` to preview coverage.
-- `npm run lint` / `lint:fix` — ESLint check/fix.
-- `npm run fmt` — Format only changed files against `origin/main`. Use `fmt:full` for the entire repo.
-- `npm run check-all` — Aggregate checks (types, lint, tests, markdown, spellcheck).
-- `npm run doc` — Generate Markdown docs into `docs/`.
+- `pnpm run build` — Rollup build into `dist/`.
+- `pnpm run type-check` — TypeScript type checking (no emit).
+- `pnpm run test` — Run Vitest once. `testw` for watch, `test:ui` for UI, `test:cov` for coverage, `test:cov:ui` to preview coverage.
+- `pnpm run lint` / `lint:fix` — ESLint check/fix.
+- `pnpm run fmt` — Format only changed files against `origin/main`. Use `fmt:full` for the entire repo.
+- `pnpm run check-all` — Aggregate checks (types, lint, tests, markdown, spellcheck).
+- `pnpm run doc` — Generate Markdown docs into `docs/`.
 
 ## Coding Style & Naming Conventions
 
@@ -32,7 +32,7 @@
 - Framework: Vitest with globals enabled.
 - Locations: place unit tests near sources or under `test/` using `*.test.mts`.
 - Coverage: keep meaningful coverage; exclude simple re-export files.
-- Run locally: `npm run test` or `npm run testw` during development.
+- Run locally: `pnpm run test` or `pnpm run testw` during development.
 
 ## Commit & Pull Request Guidelines
 
@@ -40,9 +40,9 @@
     - `feat: add parser for .mts`
     - `fix: handle Windows path resolution`
     - `chore(deps): bump rollup to 4.50.1`
-- PRs: include a clear description, link related issues, screenshots or logs when useful, and note breaking changes using “BREAKING CHANGE: …”. Ensure CI passes and `npm run check-all` is clean.
+- PRs: include a clear description, link related issues, screenshots or logs when useful, and note breaking changes using “BREAKING CHANGE: …”. Ensure CI passes and `pnpm run check-all` is clean.
 
 ## Security & Configuration Tips
 
 - Node ≥ `20.11`. Do not commit secrets; use `.env` (see `.env.example`).
-- GitHub rules helpers: `npm run apply-branch-protection-rules` and `backup-branch-protection-rules` require a GitHub token in `.env`.
+- GitHub rules helpers: `pnpm run apply-branch-protection-rules` and `backup-branch-protection-rules` require a GitHub token in `.env`.
