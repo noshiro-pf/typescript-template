@@ -1,6 +1,6 @@
 [**typescript-template**](README.md)
 
----
+***
 
 [typescript-template](README.md) / expect-type
 
@@ -19,7 +19,6 @@ Checks the relationship between type `A` and type `B` based on the `_relation` p
 This function has no runtime effect and is used for static type checking.
 
 Supported relations:
-
 - `expectType<A, B>("=")`: Asserts that type `A` is strictly equal to type `B`.
 - `expectType<A, B>("~=")`: Asserts that type `A` extends type `B`, and type `B` extends type `A` (i.e., they are mutually assignable).
 - `expectType<A, B>("<=")`: Asserts that type `A` extends type `B` (i.e., `A` is a subtype of `B`).
@@ -46,11 +45,11 @@ The second type for comparison.
 
 ##### \_relation
 
-`TypeEq`\<`A`, `B`\> _extends_ `true` ? `"<="` \| `"="` \| `">="` \| `"~="` : `"!="` \| `TypeExtends`\<`A`, `B`\> _extends_ `true` ? `"<="` \| `TypeExtends`\<`B`, `A`\> _extends_ `true` ? `">="` \| `"~="` : `"!>="` : `"!<="` \| `TypeExtends`\<`B`, `A`\> _extends_ `true` ? `">="` : `"!>="`
+`TypeEq`\<`A`, `B`\> *extends* `true` ? `"<="` \| `"="` \| `">="` \| `"~="` : `"!="` \| `TypeExtends`\<`A`, `B`\> *extends* `true` ? `"<="` \| `TypeExtends`\<`B`, `A`\> *extends* `true` ? `">="` \| `"~="` : `"!>="` : `"!<="` \| `TypeExtends`\<`B`, `A`\> *extends* `true` ? `">="` : `"!>="`
 
 A string literal representing the expected type relationship.
-TypeScript infers the valid literals based on `A` and `B`.
-Must be one of: `"="`, `"~="`, `"<="`, `">="`, `"!<="`, `"!>="`, `"!="`.
+                 TypeScript infers the valid literals based on `A` and `B`.
+                 Must be one of: `"="`, `"~="`, `"<="`, `">="`, `"!<="`, `"!>="`, `"!="`.
 
 #### Returns
 
@@ -60,26 +59,26 @@ Must be one of: `"="`, `"~="`, `"<="`, `">="`, `"!<="`, `"!>="`, `"!="`.
 
 ```typescript
 // Type equality
-expectType<string, string>('='); // ✓ passes
-expectType<number, string>('!='); // ✓ passes
+expectType<string, string>("="); // ✓ passes
+expectType<number, string>("!="); // ✓ passes
 
 // Subtype relationships
-expectType<'hello', string>('<='); // ✓ literal extends string
-expectType<string, 'hello'>('>='); // ✓ string is supertype of literal
+expectType<"hello", string>("<="); // ✓ literal extends string
+expectType<string, "hello">(">="); // ✓ string is supertype of literal
 
 // Array type checking in tests
 const result = [1, 2, 3] as const;
-expectType<typeof result, readonly [1, 2, 3]>('='); // ✓ exact tuple match
+expectType<typeof result, readonly [1, 2, 3]>("="); // ✓ exact tuple match
 
 // Function return type validation
 const fn = () => ({ a: 1, b: 2 });
-expectType<ReturnType<typeof fn>, { a: number; b: number }>('~='); // ✓ structurally equivalent
+expectType<ReturnType<typeof fn>, { a: number; b: number }>("~="); // ✓ structurally equivalent
 
 // Union and intersection types
-expectType<string | number, string>('>='); // ✓ union contains string
-expectType<string, string | number>('<='); // ✓ string extends union
+expectType<string | number, string>(">="); // ✓ union contains string
+expectType<string, string | number>("<="); // ✓ string extends union
 
 // Negative assertions
-expectType<string, number>('!='); // ✓ different types
-expectType<string, number>('!<='); // ✓ string doesn't extend number
+expectType<string, number>("!="); // ✓ different types
+expectType<string, number>("!<="); // ✓ string doesn't extend number
 ```
