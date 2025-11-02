@@ -31,6 +31,7 @@
   ],
   "scripts": {
     "build": "tsx ./scripts/cmd/build.mts",
+    "build:min": "tsx ./scripts/cmd/build.mts --skip-check",
     "check-all": "tsx ./scripts/cmd/check-all.mts",
     "check:ext": "tsx ./scripts/cmd/check-ext.mts",
     "cspell": "cspell \"**\" --gitignore --gitignore-root ./ --no-progress",
