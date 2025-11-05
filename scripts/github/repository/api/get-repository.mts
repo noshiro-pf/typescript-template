@@ -1,4 +1,5 @@
 import { GetRepositoryResponse, type EndpointKeys } from 'octokit-safe-types';
+import { validationErrorsToMessages } from 'ts-fortress';
 import { octokitHeaders, OWNER, REPO } from '../../constants.mjs';
 import { octokit } from '../../octokit.mjs';
 
@@ -14,11 +15,12 @@ export const getRepositorySettings =
       },
     );
 
-    assertGetRepositoryResponse(getRepositoryResult.data);
+    {
+      const res = GetRepositoryResponse.validate(getRepositoryResult.data);
+      if (Result.isErr(res)) {
+        console.warn(validationErrorsToMessages(res.value));
+      }
+    }
 
     return GetRepositoryResponse.fill(getRepositoryResult.data);
   };
-
-const assertGetRepositoryResponse: (
-  u: unknown,
-) => asserts u is GetRepositoryResponse = GetRepositoryResponse.assertIs;

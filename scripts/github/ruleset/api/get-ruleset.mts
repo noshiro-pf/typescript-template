@@ -1,4 +1,5 @@
 import { GetRulesetResponse, type EndpointKeys } from 'octokit-safe-types';
+import { validationErrorsToMessages } from 'ts-fortress';
 import { octokitHeaders, OWNER, REPO } from '../../constants.mjs';
 import { octokit } from '../../octokit.mjs';
 
@@ -16,11 +17,12 @@ export const getRuleset = async (
     },
   );
 
-  assertGetRulesetResponse(getRulesetResult.data);
+  {
+    const res = GetRulesetResponse.validate(getRulesetResult.data);
+    if (Result.isErr(res)) {
+      console.warn(validationErrorsToMessages(res.value));
+    }
+  }
 
   return GetRulesetResponse.fill(getRulesetResult.data);
 };
-
-const assertGetRulesetResponse: (
-  u: unknown,
-) => asserts u is GetRulesetResponse = GetRulesetResponse.assertIs;
