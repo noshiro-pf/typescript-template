@@ -19,6 +19,7 @@ export const getRuleset = async (
 
   {
     const res = GetRulesetResponse.validate(getRulesetResult.data);
+
     if (Result.isErr(res)) {
       console.warn(validationErrorsToMessages(res.value));
     }
