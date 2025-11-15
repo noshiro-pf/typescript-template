@@ -17,6 +17,7 @@ export const getRepositorySettings =
 
     {
       const res = GetRepositoryResponse.validate(getRepositoryResult.data);
+
       if (Result.isErr(res)) {
         console.warn(validationErrorsToMessages(res.value));
       }

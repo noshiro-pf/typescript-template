@@ -64,6 +64,7 @@ export const getAllRulesets = async (): Promise<GetAllRulesetsResponse> => {
 
   {
     const res = GetAllRulesetsResponse.validate(getAllRulesetsResponse.data);
+
     if (Result.isErr(res)) {
       console.warn(validationErrorsToMessages(res.value));
     }
