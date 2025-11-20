@@ -6,6 +6,14 @@
 
 Template Repository for TypeScript
 
+## Local Setup
+
+```sh
+git clone https://github.com/{owner}/{repo}.git
+git submodule update --init --recursive
+pnpm i
+```
+
 ## Repository Setup
 
 1. Copy `.env.example` to `.env` and set Personal Access Token with `repo` access.
@@ -26,6 +34,17 @@ Template Repository for TypeScript
     - `PERSONAL_ACCESS_TOKEN`
         - The same value as `1.`
         - Required for `.github/workflows/backup-repository-settings.yml` to run
+
+## Syncing AGENTS.md Updates
+
+1. Update `AGENTS.md` in the common repository (`common-agent-config`)
+2. Update the submodule in each project
+
+```bash
+git submodule update --remote --merge
+git add agents/common
+git commit -m "Update AGENTS.md"
+```
 
 ## Modules
 
