@@ -14,7 +14,10 @@ git submodule update --init --recursive
 pnpm i
 ```
 
-## Repository Setup
+- Rename the part that says "typescript-template".
+- Remove `--dry-run` from `.github/workflows/release.yml`
+
+## Github Setup
 
 1. Copy `.env.example` to `.env` and set Personal Access Token with `repo` access.
 2. Run `npm run gh:apply-all` to update GitHub Repository Settings.
