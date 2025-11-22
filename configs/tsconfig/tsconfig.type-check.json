@@ -43,10 +43,13 @@
     "isolatedModules": true,
     "allowImportingTsExtensions": false,
 
+    "erasableSyntaxOnly": false,
+    "verbatimModuleSyntax": true,
+
     // Don't include @types/* by default
     "types": [],
 
-    "lib": ["ESNext", "DOM"],
+    "lib": ["ESNext"],
 
     // Completeness
     "skipLibCheck": true
