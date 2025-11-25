@@ -5,5 +5,11 @@
   "caseSensitive": false,
   "ignoreRandomStrings": true,
   "words": ["noshiro", "testw", "tscw"],
-  "ignorePaths": ["pnpm-lock.yaml", "pnpm-workspace.yaml", "docs/**"]
+  "ignorePaths": [
+    "pnpm-lock.yaml",
+    "pnpm-workspace.yaml",
+    "dist/**",
+    "docs/**",
+    "agents/**"
+  ]
 }

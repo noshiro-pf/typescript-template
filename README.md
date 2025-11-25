@@ -2,6 +2,10 @@
 
 Template Repository for TypeScript
 
+## Documentation
+
+- API reference: <https://noshiro-pf.github.io/typescript-template/>
+
 ## Local Setup
 
 ```sh
@@ -16,7 +20,7 @@ pnpm i
 ## Github Setup
 
 1. Copy `.env.example` to `.env` and set Personal Access Token with `repo` access.
-2. Run `npm run gh:apply-all` to update GitHub Repository Settings.
+2. Run `pnpm run gh:apply-all` to update GitHub Repository Settings.
 3. Set Actions secrets on the GUI settings page (<https://github.com/{owner}/{repo}/settings/secrets/actions>).
     - `NPM_TOKEN`
         - Open <https://www.npmjs.com/settings/{your-user-id}/tokens> -> Generate New Token -> Classic Token -> Select `Automation` and generate.
