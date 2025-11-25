@@ -67,10 +67,6 @@
             "integration_id": 15368
           },
           {
-            "context": "style-check (md)",
-            "integration_id": 15368
-          },
-          {
             "context": "lint-and-build (build)",
             "integration_id": 15368
           },

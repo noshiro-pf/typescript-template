@@ -44,7 +44,7 @@
     "allowImportingTsExtensions": false,
 
     "erasableSyntaxOnly": false,
-    "verbatimModuleSyntax": true,
+    "verbatimModuleSyntax": false,
 
     // Don't include @types/* by default
     "types": [],
