@@ -37,6 +37,7 @@ pnpm i
     - `PERSONAL_ACCESS_TOKEN`
         - The same value as `1.`
         - Required for `.github/workflows/backup-repository-settings.yml` to run
+5. Go to [Pages](https://github.com/{owner}/{repo}/settings/pages) and change Build and deployment > Source to be "Github Actions".
 
 ## Syncing AGENTS.md Updates
 
