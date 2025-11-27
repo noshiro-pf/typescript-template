@@ -10,6 +10,6 @@
     "pnpm-workspace.yaml",
     "dist/**",
     "docs/**",
-    "agents/**"
+    "agents/common/**"
   ]
 }

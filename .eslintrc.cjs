@@ -11,7 +11,7 @@ module.exports = {
     '**/node_modules/**',
     'dist',
     'docs',
-    'agents',
+    'agents/**',
     '.eslintrc.cjs',
   ],
 };
