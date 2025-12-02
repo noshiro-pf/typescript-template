@@ -2,10 +2,6 @@
 
 Template Repository for TypeScript
 
-## Documentation
-
-- API reference: <https://noshiro-pf.github.io/typescript-template/>
-
 ## Key Features
 
 - 🛡️ Strict ESLint setup via [eslint-config-typed](https://github.com/noshiro-pf/eslint-config-typed), with `jiti` enabling a TypeScript `eslint.config.mts`.
@@ -20,6 +16,12 @@ Template Repository for TypeScript
 - 🔐 [github-settings-as-code](https://github.com/noshiro-pf/github-settings-as-code) tracks repository settings and rulesets as code, detecting changes via diffs.
 - 🔄 `AGENTS.md` is shared via submodule to sync operational rules across repositories.
 
+<!--
+## Documentation
+
+- API reference: <https://noshiro-pf.github.io/typescript-template/>
+-->
+
 ## Local Setup
 
 ```sh
@@ -30,6 +32,8 @@ pnpm i
 
 - Rename the part that says "typescript-template".
 - Remove `--dry-run` from `.github/workflows/release.yml`
+- Update README.md
+- Run `pnpm run check-all` and fix errors if exist.
 
 ## GitHub Setup
 
