@@ -6,6 +6,20 @@ Template Repository for TypeScript
 
 - API reference: <https://noshiro-pf.github.io/typescript-template/>
 
+## Key Features
+
+- 🛡️ Strict ESLint setup via [eslint-config-typed](https://github.com/noshiro-pf/eslint-config-typed), with `jiti` enabling a TypeScript `eslint.config.mts`.
+- 📝 Built-in spelling and formatting checks with cspell / markdownlint / Prettier.
+- 🧪 Vitest for unit testing with coverage; workflows included to upload results to [codecov.io](https://about.codecov.io/).
+- 🔄 CI runs lint / type-check / test, enforces no post-Prettier diffs, and sends coverage to Codecov.
+- 🏗️ `build` generates per-directory `index.mts`, removes unused runtime code with Rollup, and runs type checking.
+- 🚀 semantic-release triggers on merges to `main`, handling versioning, changelog updates, npm publish, and GitHub Releases.
+- 📚 TypeDoc generates docs and auto-deploys them to GitHub Pages.
+- 📦 pnpm provides strict dependency management (`pnpm-lock.yaml` included).
+- 📦 Dependabot auto-creates PRs for npm dependencies and GitHub Actions updates.
+- 🔐 [github-settings-as-code](https://github.com/noshiro-pf/github-settings-as-code) tracks repository settings and rulesets as code, detecting changes via diffs.
+- 🔄 `AGENTS.md` is shared via submodule to sync operational rules across repositories.
+
 ## Local Setup
 
 ```sh
@@ -17,7 +31,7 @@ pnpm i
 - Rename the part that says "typescript-template".
 - Remove `--dry-run` from `.github/workflows/release.yml`
 
-## Github Setup
+## GitHub Setup
 
 1. Copy `.env.example` to `.env` and set Personal Access Token with `repo` access.
 2. Run `pnpm run gh:apply-all` to update GitHub Repository Settings.
