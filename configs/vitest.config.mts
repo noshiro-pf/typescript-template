@@ -80,7 +80,7 @@ const coverageSettings = (
   ({
     provider,
     reporter: ['html', 'lcov', 'text'],
-    include: ['src/**'],
+    include: ['src/**/*.{mts,tsx}'],
     exclude: ['**/index.mts', 'src/entry-point.mts'],
   }) as const;
 
