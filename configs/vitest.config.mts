@@ -10,14 +10,15 @@ type ViteUserConfig = DeepReadonly<ViteUserConfig_>;
 const config = (): ViteUserConfig =>
   ({
     test: {
+      coverage: coverageSettings(),
+
       alias: {
         'typescript-template': path.resolve(
           projectRootPath,
           './src/entry-point.mts',
         ),
       },
-      passWithNoTests: true,
-      coverage: coverageSettings('istanbul'),
+
       projects: [
         {
           test: {
@@ -49,6 +50,9 @@ const config = (): ViteUserConfig =>
               instances: [{ browser: 'chromium' }],
             },
           },
+          optimizeDeps: {
+            include: [],
+          },
         },
       ],
     },
@@ -64,7 +68,7 @@ const projectConfig = (
     globals: true,
     restoreMocks: true,
     hideSkippedTests: true,
-    includeSource: ['src/**/*.mts'],
+    includeSource: ['src/**/*.mts', 'samples/**/*.mts'],
     include: ['src/**/*.test.mts', 'test/**/*.test.mts'],
     exclude: [
       '**/*.d.mts',
@@ -74,11 +78,9 @@ const projectConfig = (
     ],
   }) as const;
 
-const coverageSettings = (
-  provider: 'v8' | 'istanbul',
-): DeepReadonly<CoverageOptions> =>
+const coverageSettings = (): DeepReadonly<CoverageOptions> =>
   ({
-    provider,
+    provider: 'v8',
     reporter: ['html', 'lcov', 'text'],
     include: ['src/**/*.{mts,tsx}'],
     exclude: ['**/index.mts', 'src/entry-point.mts'],
