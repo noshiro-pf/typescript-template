@@ -36,7 +36,7 @@ Add `@example` blocks to the JSDoc comments.
 
 ### 2. Add Mapping Definition
 
-Add mappings of source files to their sample files in `sourceFileMappings` within `scripts/cmd/embed-examples-in-jsdoc.mts`. Sample files must be listed in the order they appear in the source file (from top to bottom).
+Add mappings of source files to their sample files in `sourceFileMappings` within `scripts/cmd/embed-examples-in-jsdoc-map.mts`. Sample files must be listed in the order they appear in the source file (from top to bottom).
 
 ```typescript
 const sourceFileMappings: readonly SourceFileMapping[] = [
