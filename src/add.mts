@@ -1,3 +1,12 @@
+/**
+ * @example
+ *
+ * ```ts
+ * const result = add(1, 2);
+ *
+ * assert.isTrue(result === 3);
+ * ```
+ */
 export const add = (x: number, y: number): number => x + y;
 
 if (import.meta.vitest !== undefined) {
