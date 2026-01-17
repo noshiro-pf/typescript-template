@@ -1,5 +1,5 @@
 // Example: src/add.mts
-import { add } from '../../src/add.mjs';
+import { add } from 'typescript-template';
 
 if (import.meta.vitest !== undefined) {
   test('main', () => {
