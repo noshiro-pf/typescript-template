@@ -27,7 +27,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node-version: ['18', '20', '22', '25']
+        node-version: ['20.20.0', '22.22.0', '24.13.0', '25.4.0']
 
     steps:
       - name: Checkout
