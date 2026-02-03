@@ -1,49 +1,67 @@
 {
   "permissions": {
     "allow": [
+      "Bash(npm run *)",
+      "Bash(yarn *)",
+      "Bash(pnpm *)",
+      "Bash(pnpm exec *)",
+      "Bash(node *)",
+      "Bash(git status)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git branch *)",
+      "Bash(git checkout *)",
+      "Bash(git commit *)",
+      "Bash(git pull *)",
+      "Bash(git fetch *)",
+      "Bash(gh *)",
+      "Bash(ls *)",
+      "Bash(which *)",
+      "Bash(echo *)",
       "Bash(cat *)",
       "Bash(cp *)",
-      "Bash(echo *)",
       "Bash(find:*)",
-      "Bash(gh *)",
-      "Bash(git *)",
-      "Bash(grep:*)",
-      "Bash(ls *)",
-      "Bash(ls:*)",
-      "Bash(ls:*)",
-      "Bash(mkdir *)",
-      "Bash(mkdir:*)",
-      "Bash(mv *)",
-      "Bash(mv:*)",
-      "Bash(node:*)",
-      "Bash(pnpm *)",
-      "Bash(pnpm run build:*)",
-      "Bash(pnpm run check-all:*)",
-      "Bash(pnpm run cspell:*)",
-      "Bash(pnpm run fmt:*)",
-      "Bash(pnpm run lint:*)",
-      "Bash(pnpm run lint)",
-      "Bash(pnpm run test)",
-      "Bash(pnpm run tsc:*)",
-      "Bash(pnpm run type-check)",
-      "Bash(pnpm run typecheck:*)",
-      "Bash(pnpm test:*)",
-      "Bash(pnpm exec *)",
-      "Bash(pnpm exec eslint:*)",
-      "Bash(pnpm exec tsc:*)",
-      "Bash(pnpm exec tsx:*)",
-      "Bash(pnpm exec vitest:*)",
-      "Bash(open *)",
       "Bash(pwd)",
-      "Bash(rg:*)",
+      "Bash(mkdir *)",
+      "Bash(mv *)",
       "Bash(rm:*)",
       "Bash(sed:*)",
       "Bash(touch *)",
+      "Bash(date *)",
+      "Read(~/.zshrc)",
+      "Read(~/.bashrc)",
       "Fetch(https://*)",
       "List(*)",
       "mcp__ide__executeCode",
       "mcp__ide__getDiagnostics"
     ],
-    "deny": []
+    "ask": ["Bash(git push *)", "Bash(rm *)", "Bash(mv *)"],
+    "deny": [
+      "Bash(git add .)", // 意図しないファイルのステージング防止
+      "Bash(git add -A)", // 同上
+      "Bash(git push -f *)", // 強制プッシュ防止
+      "Bash(git push --force *)",
+      "Bash(git reset --hard *)", // 変更の破棄防止
+      "Bash(git checkout .)", // 変更の破棄防止
+      "Bash(git clean -f *)", // 追跡外ファイルの削除防止
+      "Bash(git -C *)", // 他ディレクトリでの操作防止
+      "Bash(npm publish *)", // 意図しないパッケージ公開防止
+      "Bash(yarn publish *)",
+      "Bash(pnpm publish *)",
+      "Bash(curl *)",
+      "Bash(wget *)",
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Edit(./.env)",
+      "Edit(./.env.*)",
+      "Read(~/.ssh/**)", // SSH鍵
+      "Read(~/.aws/**)", // AWS認証情報
+      "Read(~/.config/gcloud/**)" // GCP認証情報
+    ]
+  },
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": true,
+    "excludedCommands": ["git", "docker"]
   }
 }
