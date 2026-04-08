@@ -51,8 +51,8 @@ importers:
         specifier: 4.0.18
         version: 4.0.18(vitest@4.0.18)
       conventional-changelog-conventionalcommits:
-        specifier: 9.3.0
-        version: 9.3.0
+        specifier: 9.3.1
+        version: 9.3.1
       cspell:
         specifier: 9.7.0
         version: 9.7.0
@@ -1104,8 +1104,8 @@ packages:
   '@types/ms@2.1.0':
     resolution: {integrity: sha512-GsCCIZDE/p3i96vtEqx+7dBUGXrc7zeSK3wwPHIaRThS+9OhWIXRqzs4d6k1SVU8g91DrNRWxWUGhp5KXQb2VA==}
 
-  '@types/node@20.19.37':
-    resolution: {integrity: sha512-8kzdPJ3FsNsVIurqBs7oodNnCEVbni9yUEkaHbgptDACOPW04jimGagZ51E6+lXUwJjgnBw+hyko/lkFWCldqw==}
+  '@types/node@20.19.39':
+    resolution: {integrity: sha512-orrrD74MBUyK8jOAD/r0+lfa1I2MO6I+vAkmAWzMYbCcgrN4lCrmK52gRFQq/JRxfYPfonkr4b0jcY7Olqdqbw==}
 
   '@types/node@25.5.0':
     resolution: {integrity: sha512-jp2P3tQMSxWugkCUKLRPVUpGaL5MVFwF8RDuSRztfwgN1wmqJeMSbKlnEtQqU8UrhTmzEmZdu2I6v2dpp7XIxw==}
@@ -1672,8 +1672,8 @@ packages:
     resolution: {integrity: sha512-GGf2Nipn1RUCAktxuVauVr1e3r8QrLP/B0lEUsFktmGqc3ddbQkhoJZHJctVU829U1c6mTSWftrVOCHaL85Q3w==}
     engines: {node: '>=18'}
 
-  conventional-changelog-conventionalcommits@9.3.0:
-    resolution: {integrity: sha512-kYFx6gAyjSIMwNtASkI3ZE99U1fuVDJr0yTYgVy+I2QG46zNZfl2her+0+eoviG82c5WQvW1jMt1eOQTeJLodA==}
+  conventional-changelog-conventionalcommits@9.3.1:
+    resolution: {integrity: sha512-dTYtpIacRpcZgrvBYvBfArMmK2xvIpv2TaxM0/ZI5CBtNUzvF2x0t15HsbRABWprS6UPmvj+PzHVjSx4qAVKyw==}
     engines: {node: '>=18'}
 
   conventional-changelog-writer@8.2.0:
@@ -5314,7 +5314,7 @@ snapshots:
 
   '@types/ms@2.1.0': {}
 
-  '@types/node@20.19.37':
+  '@types/node@20.19.39':
     dependencies:
       undici-types: 6.21.0
     optional: true
@@ -5936,7 +5936,7 @@ snapshots:
     dependencies:
       compare-func: 2.0.0
 
-  conventional-changelog-conventionalcommits@9.3.0:
+  conventional-changelog-conventionalcommits@9.3.1:
     dependencies:
       compare-func: 2.0.0
 
@@ -7023,7 +7023,7 @@ snapshots:
 
   happy-dom@20.0.11:
     dependencies:
-      '@types/node': 20.19.37
+      '@types/node': 20.19.39
       '@types/whatwg-mimetype': 3.0.2
       whatwg-mimetype: 3.0.0
     optional: true
