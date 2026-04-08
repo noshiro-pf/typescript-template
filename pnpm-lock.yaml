@@ -63,8 +63,8 @@ importers:
         specifier: 4.7.5
         version: 4.7.5(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.56.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.4(jiti@2.6.1)))(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3)(vitest@4.0.18)
       github-settings-as-code:
-        specifier: 1.2.0
-        version: 1.2.0(typescript@5.9.3)
+        specifier: 1.2.2
+        version: 1.2.2(typescript@5.9.3)
       jiti:
         specifier: 2.6.1
         version: 2.6.1
@@ -1104,8 +1104,8 @@ packages:
   '@types/ms@2.1.0':
     resolution: {integrity: sha512-GsCCIZDE/p3i96vtEqx+7dBUGXrc7zeSK3wwPHIaRThS+9OhWIXRqzs4d6k1SVU8g91DrNRWxWUGhp5KXQb2VA==}
 
-  '@types/node@20.19.37':
-    resolution: {integrity: sha512-8kzdPJ3FsNsVIurqBs7oodNnCEVbni9yUEkaHbgptDACOPW04jimGagZ51E6+lXUwJjgnBw+hyko/lkFWCldqw==}
+  '@types/node@20.19.39':
+    resolution: {integrity: sha512-orrrD74MBUyK8jOAD/r0+lfa1I2MO6I+vAkmAWzMYbCcgrN4lCrmK52gRFQq/JRxfYPfonkr4b0jcY7Olqdqbw==}
 
   '@types/node@25.5.0':
     resolution: {integrity: sha512-jp2P3tQMSxWugkCUKLRPVUpGaL5MVFwF8RDuSRztfwgN1wmqJeMSbKlnEtQqU8UrhTmzEmZdu2I6v2dpp7XIxw==}
@@ -2423,8 +2423,8 @@ packages:
   git-log-parser@1.2.1:
     resolution: {integrity: sha512-PI+sPDvHXNPl5WNOErAK05s3j0lgwUzMN6o8cyQrDaKfT3qd7TmNJKeXX+SknI5I0QhG5fVPAEwSY4tRGDtYoQ==}
 
-  github-settings-as-code@1.2.0:
-    resolution: {integrity: sha512-A06TzvIpYh/ksCJzknqLe9jYh5JF/YH+tNY664soxp2obhALUZ8hTVS+mXI2L+gRq/fGjnrq5wVvXKtxeTOAIA==}
+  github-settings-as-code@1.2.2:
+    resolution: {integrity: sha512-W3jKw+9dWGoWUcx215abp3yBstSURXAaFA5HQyyGk4cxIVy4FvWjZVSjXEveVz5eefvhM4emggUYOueEnpvwnw==}
     engines: {node: '>=20.11.0', pnpm: '>=8.0.0'}
     hasBin: true
 
@@ -2853,8 +2853,8 @@ packages:
   json-stable-stringify-without-jsonify@1.0.1:
     resolution: {integrity: sha512-Bdboy+l7tA3OGW6FjyFHWkP5LuByj1Tk33Ljyq0axyzdk9//JSi2u3fP1QSmd1KNwq6VOKYGlAu87CisVir6Pw==}
 
-  json-with-bigint@3.5.7:
-    resolution: {integrity: sha512-7ei3MdAI5+fJPVnKlW77TKNKwQ5ppSzWvhPuSuINT/GYW9ZOC1eRKOuhV9yHG5aEsUPj9BBx5JIekkmoLHxZOw==}
+  json-with-bigint@3.5.8:
+    resolution: {integrity: sha512-eq/4KP6K34kwa7TcFdtvnftvHCD9KvHOGGICWwMFc4dOOKF5t4iYqnfLK8otCRCRv06FXOzGGyqE8h8ElMvvdw==}
 
   json5@1.0.2:
     resolution: {integrity: sha512-g1MWMLBiz8FKi1e4w0UyVL3w+iJceWAFBAaBnnGKOpNa5f8TLktkbre1+s6oICydWAm+HRUGTmI+//xv2hvXYA==}
@@ -3309,8 +3309,8 @@ packages:
   obug@2.1.1:
     resolution: {integrity: sha512-uTqF9MuPraAQ+IsnPf366RG4cP9RtUi7MLO1N3KEc+wb0a6yKpeL0lmk2IB1jY5KHPAlTc6T/JRdC/YqxHNwkQ==}
 
-  octokit-safe-types@1.2.10:
-    resolution: {integrity: sha512-2EcPUjkrjabIOe5IWzAq+COY19uBhk42AfGlT/vJrUeLZnVH174f94d4i7SyBe+QKcmi/VrOjB8q8BJTAOXa4w==}
+  octokit-safe-types@1.2.13:
+    resolution: {integrity: sha512-zE4bYHq0OuoZHK71x9Yj9n859kyb5rtaLHPk18OfFgRwLudG2bIXVkK7wuhrQm6e3ZsTjsg8SbCloO1KrvR3Ig==}
     engines: {node: '>=20.11.0', pnpm: '>=8.0.0'}
 
   onetime@5.1.2:
@@ -3993,10 +3993,9 @@ packages:
     peerDependencies:
       typescript: '>=4.0.0'
 
-  ts-fortress@6.4.1:
-    resolution: {integrity: sha512-d6BalDR+4jbZaFpLmjxZHAIljNy1EJ06hYzAhGwpPCX8ywSDnDqjdGd//48LsJdP1Xna9DrPyV8pFt7InZEyZw==}
+  ts-fortress@7.0.2:
+    resolution: {integrity: sha512-0Vqa3NdBOXIfphzjV1RFHAy76UUuwbknQottir8WaiCkqmUKwEhvCuR3iQ3KuFE8TEaGwBcf/sASyauHOsYhNw==}
     engines: {node: '>=20.11.0', pnpm: '>=8.0.0'}
-    deprecated: There is a bug in ts-data-forge that prevents mergeRecords from working correctly. Please use v7.
 
   ts-morph@27.0.2:
     resolution: {integrity: sha512-fhUhgeljcrdZ+9DZND1De1029PrE+cMkIP7ooqkLRTrRLTqcki2AstsyJm0vRNbTbVCNJ0idGlbBrfqc7/nA8w==}
@@ -4983,7 +4982,7 @@ snapshots:
       '@octokit/request-error': 7.1.0
       '@octokit/types': 16.0.0
       fast-content-type-parse: 3.0.0
-      json-with-bigint: 3.5.7
+      json-with-bigint: 3.5.8
       universal-user-agent: 7.0.3
 
   '@octokit/types@16.0.0':
@@ -5314,7 +5313,7 @@ snapshots:
 
   '@types/ms@2.1.0': {}
 
-  '@types/node@20.19.37':
+  '@types/node@20.19.39':
     dependencies:
       undici-types: 6.21.0
     optional: true
@@ -6960,13 +6959,13 @@ snapshots:
       through2: 2.0.5
       traverse: 0.6.8
 
-  github-settings-as-code@1.2.0(typescript@5.9.3):
+  github-settings-as-code@1.2.2(typescript@5.9.3):
     dependencies:
       '@octokit/core': 7.0.6
       dotenv: 17.3.1
-      octokit-safe-types: 1.2.10(typescript@5.9.3)
+      octokit-safe-types: 1.2.13(typescript@5.9.3)
       ts-data-forge: 6.8.0(typescript@5.9.3)
-      ts-fortress: 6.4.1(typescript@5.9.3)
+      ts-fortress: 7.0.2(typescript@5.9.3)
     transitivePeerDependencies:
       - typescript
 
@@ -7023,7 +7022,7 @@ snapshots:
 
   happy-dom@20.0.11:
     dependencies:
-      '@types/node': 20.19.37
+      '@types/node': 20.19.39
       '@types/whatwg-mimetype': 3.0.2
       whatwg-mimetype: 3.0.0
     optional: true
@@ -7356,7 +7355,7 @@ snapshots:
 
   json-stable-stringify-without-jsonify@1.0.1: {}
 
-  json-with-bigint@3.5.7: {}
+  json-with-bigint@3.5.8: {}
 
   json5@1.0.2:
     dependencies:
@@ -7861,12 +7860,12 @@ snapshots:
 
   obug@2.1.1: {}
 
-  octokit-safe-types@1.2.10(typescript@5.9.3):
+  octokit-safe-types@1.2.13(typescript@5.9.3):
     dependencies:
       '@octokit/openapi-types': 27.0.0
       '@octokit/types': 16.0.0
       ts-data-forge: 6.8.0(typescript@5.9.3)
-      ts-fortress: 6.4.1(typescript@5.9.3)
+      ts-fortress: 7.0.2(typescript@5.9.3)
     transitivePeerDependencies:
       - typescript
 
@@ -8611,7 +8610,7 @@ snapshots:
       picomatch: 4.0.4
       typescript: 5.9.3
 
-  ts-fortress@6.4.1(typescript@5.9.3):
+  ts-fortress@7.0.2(typescript@5.9.3):
     dependencies:
       '@sindresorhus/is': 7.2.0
       ts-data-forge: 6.8.0(typescript@5.9.3)
