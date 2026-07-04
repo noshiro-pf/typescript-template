@@ -10,7 +10,7 @@ describe('browser-only-apis', () => {
   });
 
   test('environment', () => {
-    // eslint-disable-next-line vitest/prefer-expect-type-of, unicorn/prefer-global-this
+    // eslint-disable-next-line vitest/prefer-expect-type-of
     expect(typeof window).not.toBe('undefined');
   });
 });
