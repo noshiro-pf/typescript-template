@@ -33,6 +33,12 @@ const checkAll = async (): Promise<void> => {
   });
 
   await logStep({
+    startMessage: 'Running test:browser',
+    action: () => runCmdStep('pnpm run test:browser', 'Browser tests failed'),
+    successMessage: 'Browser tests passed',
+  });
+
+  await logStep({
     startMessage: 'Running lint fixes',
     action: () => runCmdStep('pnpm run lint:fix', 'Linting failed'),
     successMessage: 'Lint fixes applied',
@@ -40,7 +46,7 @@ const checkAll = async (): Promise<void> => {
 
   await logStep({
     startMessage: 'Running codemod',
-    action: () => runCmdStep('pnpm run codemod:full', 'Codemod failed'),
+    action: () => runCmdStep('pnpm run codemod:diff', 'Codemod failed'),
     successMessage: 'Codemod applied',
   });
 
