@@ -77,7 +77,9 @@ const build = async (skipCheck: boolean): Promise<void> => {
       await runStep(
         Result.fromPromise(
           (async () => {
-            const bundle = await rollup(rollupConfig);
+            // `await using` disposes (closes) the bundle when this scope
+            // exits, even if `bundle.write(...)` throws.
+            await using bundle = await rollup(rollupConfig);
 
             const outputs =
               rollupConfig.output === undefined
@@ -89,8 +91,6 @@ const build = async (skipCheck: boolean): Promise<void> => {
             for (const output of outputs) {
               await bundle.write(output);
             }
-
-            await bundle.close();
           })(),
         ),
         'Rollup build failed',
