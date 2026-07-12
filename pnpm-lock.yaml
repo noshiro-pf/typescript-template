@@ -88,14 +88,14 @@ importers:
         specifier: 1.61.1
         version: 1.61.1
       prettier:
-        specifier: 3.9.3
-        version: 3.9.3
+        specifier: 3.9.4
+        version: 3.9.4
       prettier-plugin-organize-imports:
         specifier: 4.3.0
-        version: 4.3.0(prettier@3.9.3)(typescript@6.0.3)
+        version: 4.3.0(prettier@3.9.4)(typescript@6.0.3)
       prettier-plugin-packagejson:
         specifier: 3.0.2
-        version: 3.0.2(prettier@3.9.3)
+        version: 3.0.2(prettier@3.9.4)
       rollup:
         specifier: 4.62.2
         version: 4.62.2
@@ -107,13 +107,13 @@ importers:
         version: 25.0.5(typescript@6.0.3)
       ts-codemod-lib:
         specifier: 2.2.1
-        version: 2.2.1(dedent@1.7.2)(ts-repo-utils@10.1.2(prettier@3.9.3)(typescript@6.0.3))(typescript@6.0.3)
+        version: 2.2.1(dedent@1.7.2)(ts-repo-utils@10.1.2(prettier@3.9.4)(typescript@6.0.3))(typescript@6.0.3)
       ts-data-forge:
         specifier: 7.0.1
         version: 7.0.1(typescript@6.0.3)
       ts-repo-utils:
         specifier: 10.1.2
-        version: 10.1.2(prettier@3.9.3)(typescript@6.0.3)
+        version: 10.1.2(prettier@3.9.4)(typescript@6.0.3)
       tsx:
         specifier: 4.22.4
         version: 4.22.4
@@ -3756,8 +3756,8 @@ packages:
       prettier:
         optional: true
 
-  prettier@3.9.3:
-    resolution: {integrity: sha512-HWmu+K+zvHNpaMfSnYeqdqrDbR16cuIXaPx8WoHaviQkDJh1/0BNtOZmHVQI5jc3wXv0H1yXc9wjvFdXh+n3hQ==}
+  prettier@3.9.4:
+    resolution: {integrity: sha512-yWG/o/4oJfo036EKAfK6ACAoDOfHeRHx4tuxkfBZiauURiaSmYwlpOr5LQqKtIkRD2z1PLteme2WoxEnj4tHTg==}
     engines: {node: '>=14'}
     hasBin: true
 
@@ -8364,18 +8364,18 @@ snapshots:
 
   prelude-ls@1.2.1: {}
 
-  prettier-plugin-organize-imports@4.3.0(prettier@3.9.3)(typescript@6.0.3):
+  prettier-plugin-organize-imports@4.3.0(prettier@3.9.4)(typescript@6.0.3):
     dependencies:
-      prettier: 3.9.3
+      prettier: 3.9.4
       typescript: 6.0.3
 
-  prettier-plugin-packagejson@3.0.2(prettier@3.9.3):
+  prettier-plugin-packagejson@3.0.2(prettier@3.9.4):
     dependencies:
       sort-package-json: 3.7.1
     optionalDependencies:
-      prettier: 3.9.3
+      prettier: 3.9.4
 
-  prettier@3.9.3: {}
+  prettier@3.9.4: {}
 
   pretty-ms@9.3.0:
     dependencies:
@@ -8942,14 +8942,14 @@ snapshots:
     dependencies:
       typescript: 6.0.3
 
-  ts-codemod-lib@2.2.1(dedent@1.7.2)(ts-repo-utils@10.1.2(prettier@3.9.3)(typescript@6.0.3))(typescript@6.0.3):
+  ts-codemod-lib@2.2.1(dedent@1.7.2)(ts-repo-utils@10.1.2(prettier@3.9.4)(typescript@6.0.3))(typescript@6.0.3):
     dependencies:
       ts-data-forge: 6.9.6(typescript@6.0.3)
       ts-morph: 28.0.0
       ts-type-forge: 3.2.0
     optionalDependencies:
       dedent: 1.7.2
-      ts-repo-utils: 10.1.2(prettier@3.9.3)(typescript@6.0.3)
+      ts-repo-utils: 10.1.2(prettier@3.9.4)(typescript@6.0.3)
     transitivePeerDependencies:
       - typescript
 
@@ -8989,7 +8989,7 @@ snapshots:
       '@ts-morph/common': 0.29.0
       code-block-writer: 13.0.3
 
-  ts-repo-utils@10.1.2(prettier@3.9.3)(typescript@6.0.3):
+  ts-repo-utils@10.1.2(prettier@3.9.4)(typescript@6.0.3):
     dependencies:
       '@nodelib/fs.walk': 3.0.1
       '@sindresorhus/is': 8.1.0
@@ -8997,7 +8997,7 @@ snapshots:
       cmd-ts: 0.15.0
       fast-glob: 3.3.3
       micromatch: 4.0.8
-      prettier: 3.9.3
+      prettier: 3.9.4
       ts-data-forge: 6.9.6(typescript@6.0.3)
       ts-type-forge: 3.2.0
       tsx: 4.22.4
