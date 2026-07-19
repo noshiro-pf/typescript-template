@@ -80,7 +80,7 @@
     "z:vitest:node": "pnpm run z:vitest --project='Node.js'"
   },
   "dependencies": {
-    "ts-type-forge": "^4.0.0"
+    "ts-type-forge": "^5.0.0"
   },
   "devDependencies": {
     "@rollup/plugin-replace": "6.0.3",
