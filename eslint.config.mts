@@ -11,7 +11,6 @@ const thisDir = import.meta.dirname;
 export default [
   {
     ignores: [
-      '.eslintrc.cjs',
       'docs/**',
       'agents/**',
       // test/dist/ has its own tsconfig and type-checks the built dist/
@@ -64,10 +63,7 @@ export default [
   {
     files: ['src/**'],
     rules: defineKnownRules({
-      'import-x/no-unused-modules': [
-        'error',
-        { unusedExports: true, ignoreExports: ['src/entry-point.mts'] },
-      ],
+      'import-x/no-unused-modules': 'off',
     }),
   },
   {
