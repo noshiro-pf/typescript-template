@@ -51,7 +51,7 @@
     "codemod:full:readonly": "convert-to-readonly '{src,scripts,samples,test}/**/*.{mts,tsx}'",
     "codemod:uncommitted:as-const": "append-as-const --uncommitted '{src,scripts,samples,test}/**/*.{mts,tsx}'",
     "codemod:uncommitted:readonly": "convert-to-readonly --uncommitted '{src,scripts,samples,test}/**/*.{mts,tsx}'",
-    "cspell": "cspell \"**\" --gitignore --gitignore-root ./ --no-progress",
+    "cspell": "cspell \"{**,.changeset/**/*,.github/**/*}\" --gitignore --gitignore-root ./ --no-progress",
     "doc": "tsx ./scripts/cmd/gen-docs.mts",
     "doc:embed": "tsx ./scripts/cmd/embed-examples.mts",
     "doc:embed:jsdoc": "tsx ./scripts/cmd/embed-examples-in-jsdoc.mts",
