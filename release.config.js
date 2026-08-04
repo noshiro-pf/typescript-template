@@ -49,17 +49,11 @@ export default {
     // 4-a. Update the version field in package.json with the next version number.
     //
     // NOTE: npmPublish: false にしている。このリポジトリはテンプレートで、
-    // release workflow も `--dry-run` 固定のため npm へ publish する運用になって
-    // いない（ npm 上の typescript-template は 2023-07 以降更新なし ）。
+    // release workflow も `--dry-run` 固定のため npm へ publish する運用になっていない。
     //
     // npmPublish: true のままだと verifyConditions が npm 認証を要求する。
     // npm 側にこのパッケージの trusted publisher が構成されていないため OIDC の
-    // token exchange が 404 になり、NPM_TOKEN も無いため
-    // "No npm token specified." で落ちる。
-    //
-    // 実際に publish する運用へ戻す場合は、npm 側で trusted publisher
-    // （ repository: noshiro-pf/typescript-template, workflow: release.yml ）を
-    // 設定したうえで npmPublish: true に戻すこと。
+    // token exchange が 404 になり、NPM_TOKEN も無いため "No npm token specified." で落ちる。
     { path: '@semantic-release/npm', npmPublish: false },
 
     // 5. Commit the changes of assets generated during the release flow to the repository.

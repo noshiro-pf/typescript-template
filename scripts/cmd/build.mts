@@ -1,7 +1,7 @@
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
 import { rollup } from 'rollup';
-import { type UnknownResult, unknownToString } from 'ts-data-forge';
+import { Arr, type UnknownResult, unknownToString } from 'ts-data-forge';
 import { $, Result } from 'ts-repo-utils';
 import { projectRootPath } from '../project-root-path.mjs';
 import { genAgentsMd } from './gen-agents-md.mjs';
@@ -91,7 +91,7 @@ const build = async (skipCheck: boolean): Promise<void> => {
             const outputs =
               rollupConfig.output === undefined
                 ? ([] as const)
-                : Array.isArray(rollupConfig.output)
+                : Arr.isArray(rollupConfig.output)
                   ? rollupConfig.output
                   : ([rollupConfig.output] as const);
 
