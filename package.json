@@ -76,6 +76,8 @@
     "tsc": "node ./node_modules/typescript-native/bin/tsc --noEmit",
     "tscw": "node ./node_modules/typescript-native/bin/tsc --noEmit --watch -p ./tsconfig.json",
     "type-check": "node ./node_modules/typescript-native/bin/tsc --noEmit",
+    "update-actions": "pnpm update --recursive --include-github-actions \"*/*\"",
+    "update-packages": "pnpm update --latest --recursive",
     "z:vitest": "vitest --config ./configs/vitest.config.mts",
     "z:vitest:node": "pnpm run z:vitest --project='Node.js'"
   },
