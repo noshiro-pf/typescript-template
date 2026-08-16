@@ -20,12 +20,12 @@
       "Bash(echo *)",
       "Bash(cat *)",
       "Bash(cp *)",
-      "Bash(find:*)",
+      "Bash(find *)",
       "Bash(pwd)",
       "Bash(mkdir *)",
       "Bash(mv *)",
-      "Bash(rm:*)",
-      "Bash(sed:*)",
+      "Bash(rm *)",
+      "Bash(sed *)",
       "Bash(touch *)",
       "Bash(date *)",
       "Read(~/.zshrc)",
@@ -37,15 +37,15 @@
     ],
     "ask": ["Bash(git push *)", "Bash(rm *)", "Bash(mv *)"],
     "deny": [
-      "Bash(git add .)", // 意図しないファイルのステージング防止
-      "Bash(git add -A)", // 同上
-      "Bash(git push -f *)", // 強制プッシュ防止
+      "Bash(git add .)",
+      "Bash(git add -A)",
+      "Bash(git push -f *)",
       "Bash(git push --force *)",
-      "Bash(git reset --hard *)", // 変更の破棄防止
-      "Bash(git checkout .)", // 変更の破棄防止
-      "Bash(git clean -f *)", // 追跡外ファイルの削除防止
-      "Bash(git -C *)", // 他ディレクトリでの操作防止
-      "Bash(npm publish *)", // 意図しないパッケージ公開防止
+      "Bash(git reset --hard *)",
+      "Bash(git checkout .)",
+      "Bash(git clean -f *)",
+      "Bash(git -C *)",
+      "Bash(npm publish *)",
       "Bash(yarn publish *)",
       "Bash(pnpm publish *)",
       "Bash(curl *)",
@@ -54,9 +54,9 @@
       "Read(./.env.*)",
       "Edit(./.env)",
       "Edit(./.env.*)",
-      "Read(~/.ssh/**)", // SSH鍵
-      "Read(~/.aws/**)", // AWS認証情報
-      "Read(~/.config/gcloud/**)" // GCP認証情報
+      "Read(~/.ssh/**)",
+      "Read(~/.aws/**)",
+      "Read(~/.config/gcloud/**)"
     ]
   },
   "sandbox": {
