@@ -23,14 +23,21 @@ name: Auto-fix pnpm update
 #
 # ## Running it by hand
 #
-# `workflow_dispatch` takes the run to work from, so nothing here depends on
-# having been triggered by that run. Give it:
+# Nothing here depends on having been triggered by the run it works on, so a
+# manual run only needs to be told which half to run:
 #
-#   - **job** — which half to run. The trigger cannot work this out on its own
-#     the way `workflow_run` does, because the choice is needed in the job's
-#     `if:`, before any step has looked the run up.
-#   - **run** — the failed run to read. A run URL, a job URL, or a bare run ID;
-#     the branch and the workflow name are read back from the API.
+#   - **job** — `fix-branch` or `fix-workflow`. This one cannot be worked out
+#     for you, because the choice is needed in the job's `if:`, before any step
+#     has run.
+#   - **run** — optional. Leave it empty and the job finds its own target:
+#     `fix-branch` takes the open `chore/pnpm-update` pull request and the last
+#     failed run on it from a watched workflow, `fix-workflow` takes the last
+#     failed `Weekly pnpm update` run. Fill it in — a run URL, a job URL, or a
+#     bare run ID — only to override that, such as to work on an older failure.
+#
+# The watched-workflow filter matters more than it looks. Unrelated workflows
+# fail on the update branch too, and the newest failure there is often one of
+# those rather than the CI failure the update caused.
 #
 # One difference from the automatic path: a manual run does not apply the
 # attempt cap described below. The cap exists to stop unattended retries, and
@@ -96,7 +103,7 @@ on:
     types:
       - completed
 
-  # Run by hand against a run that has already failed. See the header comment.
+  # Run by hand. See the header comment.
   workflow_dispatch:
     inputs:
       job:
@@ -108,9 +115,23 @@ on:
           - fix-branch
           - fix-workflow
       run:
-        description: 'The failed run to read — its URL, or just the run ID'
-        required: true
+        description: 'Optional: a specific failed run — its URL or ID. Found automatically when empty.'
+        required: false
         type: string
+
+# Kept in step with `on.workflow_run.workflows` above. A manual run has no
+# triggering run to inherit, so it looks one up — and it should only ever pick a
+# run that would have started this workflow on its own. Without the filter it
+# takes the newest failure on the branch, which is as likely to be some
+# unrelated workflow as the CI failure the update actually caused.
+env:
+  WATCHED_WORKFLOWS: |
+    Weekly pnpm update
+    Lint and Build
+    Style Check
+    Test and Upload Coverage to Codecov
+    Node.js Version Compatibility
+    TypeScript Version Compatibility
 
 # Nothing here needs write access through `GITHUB_TOKEN`: every write goes
 # through the App token generated below.
@@ -124,7 +145,7 @@ concurrency:
   # key on the run that was named instead.
   group: >-
     auto-fix-pnpm-update-${{
-      github.event.workflow_run.head_branch || inputs.run
+      github.event.workflow_run.head_branch || inputs.run || 'manual'
     }}
   cancel-in-progress: false
 
@@ -184,21 +205,56 @@ jobs:
           set -euo pipefail
 
           if [ "${EVENT_NAME}" = 'workflow_dispatch' ]; then
-            # Accept a run URL, a job URL, or a bare run ID. `sed` leaves a
-            # bare ID untouched, so the check below is what rejects junk.
-            run_id="$(printf '%s' "${INPUT_RUN}" | sed -E 's#.*/runs/([0-9]+).*#\1#')"
+            if [ -n "${INPUT_RUN}" ]; then
+              # Accept a run URL, a job URL, or a bare run ID. `sed` leaves a
+              # bare ID untouched, so the check below is what rejects junk.
+              run_id="$(printf '%s' "${INPUT_RUN}" | sed -E 's#.*/runs/([0-9]+).*#\1#')"
 
-            if ! printf '%s' "${run_id}" | grep -qE '^[0-9]+$'; then
-              echo "::error::Could not read a run ID out of '${INPUT_RUN}'."
-              exit 1
+              if ! printf '%s' "${run_id}" | grep -qE '^[0-9]+$'; then
+                echo "::error::Could not read a run ID out of '${INPUT_RUN}'."
+                exit 1
+              fi
+
+              fields="$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${run_id}" \
+                --jq '[.name, .head_branch, .html_url] | @tsv')"
+            else
+              # Nothing was named. There is only ever one update branch open at
+              # a time, so the target is not ambiguous: take the open
+              # `chore/pnpm-update` pull request, newest first if somehow
+              # several are open, since the branch names carry the date.
+              branch="$(gh api "repos/${GITHUB_REPOSITORY}/pulls?state=open&per_page=100" \
+                --jq '[.[] | .head.ref | select(startswith("chore/pnpm-update"))] | sort | last // empty')"
+
+              if [ -z "${branch}" ]; then
+                echo '::error::No open chore/pnpm-update pull request to fix.'
+                exit 1
+              fi
+
+              echo "Update branch: ${branch}"
+
+              fields="$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs?branch=${branch}&status=failure&per_page=50" \
+                --jq '($ENV.WATCHED_WORKFLOWS | split("\n") | map(select(. != ""))) as $watched
+                      | [.workflow_runs[] | select([.name] | inside($watched))] | first
+                      | if . == null then empty else [.name, .head_branch, .html_url] | @tsv end')"
+
+              if [ -z "${fields}" ]; then
+                echo "::error::Nothing to fix: no failed run on ${branch} from a workflow this one watches."
+                exit 1
+              fi
             fi
-
-            fields="$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${run_id}" \
-              --jq '[.name, .head_branch, .html_url] | @tsv')"
 
             name="$(printf '%s' "${fields}" | cut -f1)"
             branch="$(printf '%s' "${fields}" | cut -f2)"
             url="$(printf '%s' "${fields}" | cut -f3)"
+
+            # On `workflow_run` the job's `if:` is what keeps this off any other
+            # branch. A run named by hand never passed through it, and the next
+            # step checks the branch out for Claude to commit to — so a run from
+            # `main` would put a `fix(deps):` commit straight onto `main`.
+            if ! printf '%s' "${branch}" | grep -q '^chore/pnpm-update'; then
+              echo "::error::That run is on '${branch}', which is not a chore/pnpm-update branch."
+              exit 1
+            fi
           else
             name="${RUN_NAME}"
             branch="${RUN_BRANCH}"
@@ -374,14 +430,26 @@ jobs:
           set -euo pipefail
 
           if [ "${EVENT_NAME}" = 'workflow_dispatch' ]; then
-            run_id="$(printf '%s' "${INPUT_RUN}" | sed -E 's#.*/runs/([0-9]+).*#\1#')"
+            if [ -n "${INPUT_RUN}" ]; then
+              run_id="$(printf '%s' "${INPUT_RUN}" | sed -E 's#.*/runs/([0-9]+).*#\1#')"
 
-            if ! printf '%s' "${run_id}" | grep -qE '^[0-9]+$'; then
-              echo "::error::Could not read a run ID out of '${INPUT_RUN}'."
-              exit 1
+              if ! printf '%s' "${run_id}" | grep -qE '^[0-9]+$'; then
+                echo "::error::Could not read a run ID out of '${INPUT_RUN}'."
+                exit 1
+              fi
+
+              url="$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${run_id}" --jq '.html_url')"
+            else
+              # This half only ever diagnoses one workflow, so its own last
+              # failure is the target.
+              url="$(gh api "repos/${GITHUB_REPOSITORY}/actions/workflows/pnpm-update.yml/runs?status=failure&per_page=1" \
+                --jq '.workflow_runs[0].html_url // empty')"
+
+              if [ -z "${url}" ]; then
+                echo '::error::Nothing to diagnose: Weekly pnpm update has no failed run.'
+                exit 1
+              fi
             fi
-
-            url="$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${run_id}" --jq '.html_url')"
           else
             url="${RUN_URL}"
           fi
