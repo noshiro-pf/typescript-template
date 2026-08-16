@@ -2,7 +2,7 @@ name: Auto-fix pnpm update
 
 # Runs Claude against a failing dependency update.
 #
-# pnpm-update.yml opens `chore/pnpm-update-<date>` every week and auto-merges it
+# pnpm-update.yml rebuilds `chore/pnpm-update` every week and auto-merges it
 # once CI passes, so the update itself needs no attention — but the follow-up
 # work does, and it is the same shape every time: a major adds a lint rule, or
 # renames an API, and the pull request sits red until someone makes the small
@@ -84,12 +84,26 @@ name: Auto-fix pnpm update
 # would let any bot that can trigger one of the workflows above start Claude
 # with the App token.
 #
-# ## Why the attempt is capped
+# ## The retry loop, and why it is capped
 #
-# Claude's fix lands on the branch, CI re-runs, and a still-failing run would
-# trigger this workflow again. The cap counts commits already made here — the
-# `fix(deps):` prefix is what marks them — and stops at two. Each weekly run
-# opens a branch under a new date, so the count starts from zero again.
+# There is no loop construct here — the retry is the trigger. Claude's fix
+# lands on the branch, the push re-runs CI, and a still-failing run arrives back
+# here as another `workflow_run`. So it keeps going by itself until CI is green,
+# which is why nothing needs to poll or wait.
+#
+# Two things stop it, and both are meant to.
+#
+#   - **`MAX_FIX_ATTEMPTS`.** The cap counts the commits already made here — the
+#     `fix(deps):` prefix is what marks them. pnpm-update.yml rebuilds the
+#     branch from main every week and force-pushes, which discards those
+#     commits, so the count is back to zero on each weekly update rather than
+#     accumulating across them.
+#   - **Claude committing nothing.** When the cause is outside this repository
+#     or the call is a policy one, it is told to comment instead of committing.
+#     No commit means no push, no CI, and no further trigger — the loop ends on
+#     its own, which is the right outcome. Re-running it would only reproduce
+#     the same reasoning, so a red pull request with an explanation on it is
+#     where it is supposed to stop.
 
 on:
   workflow_run:
@@ -125,6 +139,12 @@ on:
 # takes the newest failure on the branch, which is as likely to be some
 # unrelated workflow as the CI failure the update actually caused.
 env:
+  # How many `fix(deps):` commits this may leave on one update branch before it
+  # stops and leaves the pull request for a human. See the header comment: the
+  # retry itself is the `workflow_run` trigger, so this is the only thing
+  # bounding it when Claude keeps committing without turning CI green.
+  MAX_FIX_ATTEMPTS: '3'
+
   WATCHED_WORKFLOWS: |
     Weekly pnpm update
     Lint and Build
@@ -289,6 +309,14 @@ jobs:
         run: |
           set -euo pipefail
 
+          # Assigned rather than piped into `wc`, so that a failing `git log`
+          # stops the job instead of counting zero and starting over.
+          previous="$(git log --format='%s' origin/main..HEAD --grep='^fix(deps): ')"
+          count="$(printf '%s' "$previous" | grep -c . || true)"
+
+          echo "Attempts so far: ${count} of ${MAX_FIX_ATTEMPTS}"
+          echo "attempt=$((count + 1))" >> "$GITHUB_OUTPUT"
+
           # The cap exists to stop this from retrying unattended. A person
           # pressing the button is attended, so a manual run overrides it.
           if [ "${EVENT_NAME}" = 'workflow_dispatch' ]; then
@@ -297,18 +325,12 @@ jobs:
             exit 0
           fi
 
-          # Assigned rather than piped into `wc`, so that a failing `git log`
-          # stops the job instead of counting zero and starting over.
-          previous="$(git log --format='%s' origin/main..HEAD --grep='^fix(deps): ')"
-          count="$(printf '%s' "$previous" | grep -c . || true)"
-
-          echo "Attempts so far: ${count}"
-
-          if [ "$count" -ge 2 ]; then
+          if [ "$count" -ge "${MAX_FIX_ATTEMPTS}" ]; then
             {
               echo '### Gave up'
               echo
-              echo "Already tried ${count} times on this branch; leaving it for a human."
+              echo "Already tried ${count} times on this branch, which is the limit"
+              echo '(`MAX_FIX_ATTEMPTS`); leaving it for a human.'
             } >> "$GITHUB_STEP_SUMMARY"
             echo 'proceed=false' >> "$GITHUB_OUTPUT"
           else
@@ -351,6 +373,11 @@ jobs:
             You are on that branch, with dependencies installed. Read the
             failing run's logs, then make the follow-up change the update needs
             and commit it to this branch.
+
+            This is attempt ${{ steps.attempts.outputs.attempt }} of
+            ${{ env.MAX_FIX_ATTEMPTS }}. Any `fix(deps):` commits already on the
+            branch are earlier attempts that did not turn CI green — read them
+            first, and do not retry an approach that has already been tried.
 
             Follow `AGENTS.md` — it is the instructions for this repository.
             Note that `AGENTS.md` is generated: edit `agents/local-rules.md`
