@@ -188,12 +188,10 @@ jobs:
             # bare ID untouched, so the check below is what rejects junk.
             run_id="$(printf '%s' "${INPUT_RUN}" | sed -E 's#.*/runs/([0-9]+).*#\1#')"
 
-            case "${run_id}" in
-              '' | *[!0-9]*)
-                echo "::error::Could not read a run ID out of '${INPUT_RUN}'."
-                exit 1
-                ;;
-            esac
+            if ! printf '%s' "${run_id}" | grep -qE '^[0-9]+$'; then
+              echo "::error::Could not read a run ID out of '${INPUT_RUN}'."
+              exit 1
+            fi
 
             fields="$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${run_id}" \
               --jq '[.name, .head_branch, .html_url] | @tsv')"
@@ -378,12 +376,10 @@ jobs:
           if [ "${EVENT_NAME}" = 'workflow_dispatch' ]; then
             run_id="$(printf '%s' "${INPUT_RUN}" | sed -E 's#.*/runs/([0-9]+).*#\1#')"
 
-            case "${run_id}" in
-              '' | *[!0-9]*)
-                echo "::error::Could not read a run ID out of '${INPUT_RUN}'."
-                exit 1
-                ;;
-            esac
+            if ! printf '%s' "${run_id}" | grep -qE '^[0-9]+$'; then
+              echo "::error::Could not read a run ID out of '${INPUT_RUN}'."
+              exit 1
+            fi
 
             url="$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${run_id}" --jq '.html_url')"
           else
