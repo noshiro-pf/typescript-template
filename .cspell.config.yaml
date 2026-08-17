@@ -15,4 +15,3 @@ ignorePaths:
   - pnpm-workspace.yaml
   - dist/**
   - docs/**
-  - agents/common/**

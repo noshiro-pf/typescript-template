@@ -34,8 +34,6 @@
     "LICENSE"
   ],
   "scripts": {
-    "agents:gen": "tsx ./scripts/cmd/gen-agents-md.mts",
-    "agents:sync": "tsx ./scripts/cmd/sync-agent-config.mts",
     "build": "tsx ./scripts/cmd/build.mts",
     "build:min": "tsx ./scripts/cmd/build.mts --skip-check",
     "check:ext": "tsx ./scripts/cmd/check-ext.mts",

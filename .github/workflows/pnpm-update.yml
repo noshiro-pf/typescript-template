@@ -24,8 +24,9 @@ name: Weekly pnpm update
 # action pin moves.
 #
 # Authenticates with a GitHub App installation token (the same App used by
-# sync-agent-config.yml) so that the push triggers the push-based CI workflows
-# and the repository owner (a ruleset bypass actor) can auto-merge.
+# release.yml and auto-fix-pnpm-update.yml) so that the push triggers the
+# push-based CI workflows and the repository owner (a ruleset bypass actor) can
+# auto-merge.
 #
 # ## One branch, reused
 #
