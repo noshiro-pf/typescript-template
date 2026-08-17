@@ -45,11 +45,9 @@ most of the exclusion by itself. Still drop any PR whose `baseRefName` is not
 `main`. Releases here go through semantic-release straight from `main`, so
 unlike a Changesets repository there is no bot-authored version PR to skip.
 
-`chore/pnpm-update-<date>` does have auto-merge, enabled by the bot, so it is in
-scope. `pnpm-update.yml` opens a fresh branch under the current date each week
-rather than reusing one, so more than one may be open at a time; take the newest
-and leave the stale ones for a human. If the branch moves under you, do not
-fight it: re-survey and take its new state.
+`chore/pnpm-update` does have auto-merge, enabled by the bot, so it is in scope —
+but `pnpm-update.yml` force-pushes that branch daily. If it moves under you, do
+not fight it: re-survey and take its new state.
 
 `mergeStateStatus` says what is blocking each one:
 
@@ -112,7 +110,7 @@ fetch. Resolve conflicts by keeping the intent of both sides; if the resolution
 is not obvious, stop and ask rather than guessing. `git rebase --abort` puts
 everything back.
 
-`pnpm-lock.yaml` is the usual conflict on `chore/pnpm-update-*`. Do not hand-edit
+`pnpm-lock.yaml` is the usual conflict on `chore/pnpm-update`. Do not hand-edit
 it: take one side, then run `pnpm install --no-frozen-lockfile` and commit what
 it writes.
 
