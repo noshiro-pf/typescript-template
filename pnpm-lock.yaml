@@ -123,6 +123,9 @@ importers:
       ts-repo-utils:
         specifier: 10.2.0
         version: 10.2.0(prettier@3.9.6)(supports-color@7.2.0)(typescript@6.0.3)
+      tsx:
+        specifier: ^4.23.12
+        version: 4.23.12
       typedoc:
         specifier: 0.28.20
         version: 0.28.20(typescript@6.0.3)
@@ -8986,7 +8989,6 @@ snapshots:
       esbuild: 0.28.2
     optionalDependencies:
       fsevents: 2.3.3
-    optional: true
 
   tunnel@0.0.6: {}
 
