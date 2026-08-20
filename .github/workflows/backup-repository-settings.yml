@@ -23,19 +23,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      # GITHUB_TOKEN の permissions に administration は存在せず、リポジトリ設定や
-      # ruleset を読めないため GitHub App の installation token を使う。
-      # read では merge 関連設定と ruleset の bypass_actors が API から返らない。
-      - name: Generate Token
-        id: app-token
-        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
-        with:
-          client-id: ${{ vars.REPO_SETTINGS_BOT_CLIENT_ID }}
-          private-key: ${{ secrets.REPO_SETTINGS_BOT_PRIVATE_KEY }}
-          permission-administration: write
-          permission-contents: write
-          permission-pages: read
-
       - name: Install pnpm
         uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
 
@@ -48,6 +35,19 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      # GITHUB_TOKEN の permissions に administration は存在せず、リポジトリ設定や
+      # ruleset を読めないため GitHub App の installation token を使う。
+      # read では merge 関連設定と ruleset の bypass_actors が API から返らない。
+      - name: Generate Token
+        id: app-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          client-id: ${{ vars.REPO_SETTINGS_BOT_CLIENT_ID }}
+          private-key: ${{ secrets.REPO_SETTINGS_BOT_PRIVATE_KEY }}
+          permission-administration: write
+          permission-contents: write
+          permission-pages: read
 
       - name: Back up
         run: pnpm exec repo-settings backup
