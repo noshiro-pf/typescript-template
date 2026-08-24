@@ -1,0 +1,24 @@
+{
+  // `eslint.config.mts`, type-checked against TypeScript's own standard
+  // library rather than the strict one.
+  //
+  // `@eslint/plugin-kit` ships its types as `dist/cjs/types.cts` — an
+  // implementation file, not a declaration file — so `skipLibCheck` does not
+  // skip it, and it writes `Omit<CustomRuleTypeDefinitions, keyof Options>`
+  // where `keyof Options` is not `keyof CustomRuleTypeDefinitions`. The strict
+  // library declares `Omit<T, K extends keyof T>`, narrower than the stock
+  // `K extends keyof any`, so that line is an error (TS2344) here and nowhere
+  // else. Nothing in this repository can fix a `.cts` inside a dependency, so
+  // this one file keeps the stock library.
+  //
+  // The main `tsconfig.json` covers everything else — src, test, samples,
+  // scripts, configs — against the strict library.
+  "extends": [
+    "./tsconfig/tsconfig.type-check.json",
+    "./tsconfig/tsconfig.vite.json"
+  ],
+  "compilerOptions": {
+    "libReplacement": false
+  },
+  "include": ["../eslint.config.mts"]
+}

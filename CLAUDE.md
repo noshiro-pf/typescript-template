@@ -45,9 +45,43 @@ are now maintained here and nowhere else.
 **Validation:**
 
 - `pnpm run cspell` — Run spell checking.
-- `pnpm run type-check` — TypeScript type checking (no emit).
+- `pnpm run type-check` — TypeScript type checking (no emit). Two passes: the
+  project against the strict standard library, then `eslint.config.mts` against
+  TypeScript's own. **See "The strict standard library" below.**
 - `pnpm run lint` / `pnpm run lint:fix` — Run ESLint check/fix.
 - `pnpm run check-all` — Run all checks (types, lint, tests, markdown, spellcheck).
+
+### The strict standard library
+
+`strict-ts-lib-v7.0` replaces TypeScript's built-in library declarations with
+stricter ones — `Number.isFinite` takes a `number` rather than an `unknown`,
+`Object.keys` returns the object's own keys rather than `string[]`,
+`Omit<T, K>` constrains `K` to `keyof T`, and so on.
+
+- **`libReplacement` fails silently.** TypeScript falls back to its own
+  declarations with no diagnostic if the `paths` entry goes missing. That is
+  what `test/strict-lib-active.mts` is for: a `@ts-expect-error` that stops
+  compiling — `TS2578` — the moment the replacement stops happening. Do not
+  delete it.
+- **`paths` is replaced, not merged, by a config that `extends` another.** Any
+  config declaring `paths` of its own has to repeat the `@typescript/lib-*`
+  entry. Two do today: `configs/tsconfig/tsconfig.type-check.json` and the root
+  `tsconfig.json`.
+- **Lint and type-check run different TypeScript versions and resolve the
+  replacement by opposite routes.** The type check runs `typescript-native`
+  (7.x), which reads `paths`; ESLint runs the `typescript` module (6.x), whose
+  lib lookup is a fixed Node10 resolution that ignores `paths` and asks for
+  `@typescript/lib-*` by name. `strict-ts-lib-v6.0` supplies those names: its
+  linker runs from the `prepare` script and writes one symlink per lib group
+  into `node_modules/@typescript/`. Without it ESLint would quietly lint
+  against TypeScript's own declarations and enforce less than the type check
+  does. The two lib sets are type-identical apart from four parameter names.
+- **`eslint.config.mts` is the one file kept on the stock library**, via
+  `configs/tsconfig.eslint-config.json`. `@eslint/plugin-kit` ships its types
+  as `dist/cjs/types.cts` — an implementation file, so `skipLibCheck` does not
+  skip it — and it writes `Omit<CustomRuleTypeDefinitions, keyof Options>`,
+  which the strict `Omit` rejects. Nothing here can fix a `.cts` inside a
+  dependency.
 
 **Formatting:**
 
