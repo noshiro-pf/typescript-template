@@ -76,6 +76,14 @@ stricter ones — `Number.isFinite` takes a `number` rather than an `unknown`,
   into `node_modules/@typescript/`. Without it ESLint would quietly lint
   against TypeScript's own declarations and enforce less than the type check
   does. The two lib sets are type-identical apart from four parameter names.
+- **The links have to be removed before the TypeScript version matrix.**
+  TypeScript 5.0–5.7 have no `libReplacement` option and do the
+  `@typescript/lib-*` lookup unconditionally, so the compatibility workflow
+  would compile a lib set written for TypeScript 6 with a 5.x compiler and
+  fail on that rather than on anything this package ships. A consumer has no
+  such names installed, which is what that workflow reproduces, so
+  `typescript-version-compatibility.yml` runs
+  `pnpm exec strict-ts-lib-v6.0-link --unlink` first.
 - **`eslint.config.mts` is the one file kept on the stock library**, via
   `configs/tsconfig.eslint-config.json`. `@eslint/plugin-kit` ships its types
   as `dist/cjs/types.cts` — an implementation file, so `skipLibCheck` does not

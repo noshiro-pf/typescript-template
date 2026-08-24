@@ -55,5 +55,16 @@ jobs:
       - name: Build
         run: pnpm run build:min
 
+      # The `prepare` script links `@typescript/lib-*` to `strict-ts-lib-v6.0`
+      # so that ESLint sees the strict standard library. Those names have to go
+      # before this matrix runs: TypeScript 5.0-5.7 have no `libReplacement`
+      # option and do the lookup unconditionally, so every compiler in the
+      # matrix would pick up a lib set written for TypeScript 6 and fail on it
+      # (TS2317, TS2727, ...) rather than on anything this package ships.
+      # A consumer has no such names installed, which is exactly what this
+      # workflow is meant to reproduce.
+      - name: Remove the strict standard library link
+        run: pnpm exec strict-ts-lib-v6.0-link --unlink
+
       - name: Type-check dist output (named imports) with TypeScript ${{ matrix.ts-version }}
         run: npx -y -p typescript@${{ matrix.ts-version }} tsc -p ./test/dist/named/tsconfig.json
