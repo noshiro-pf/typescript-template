@@ -5,11 +5,6 @@
   ],
   "compilerOptions": {
     "paths": {
-      // Repeated from `configs/tsconfig/tsconfig.type-check.json`: `paths` is
-      // replaced, not merged, by a config that `extends` another, so defining
-      // any `paths` here would otherwise silently drop the strict standard
-      // library.
-      "@typescript/lib-*": ["./node_modules/strict-ts-lib-v7.0/libs/*"],
       "typescript-template": ["./src/entry-point.mts"]
     }
   },

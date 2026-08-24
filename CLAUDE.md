@@ -58,32 +58,28 @@ stricter ones — `Number.isFinite` takes a `number` rather than an `unknown`,
 `Object.keys` returns the object's own keys rather than `string[]`,
 `Omit<T, K>` constrains `K` to `keyof T`, and so on.
 
+- **One package, one mechanism: a name.** The `prepare` script runs the
+  bundle's linker, which writes one symlink per lib group into
+  `node_modules/@typescript/`. Both compilers find it there — the type check
+  runs `typescript-native` (7.x) and ESLint runs the `typescript` module (6.x),
+  and each resolves a lib replacement as an ordinary package-name lookup once
+  `libReplacement` is on. Measured on this repository: 88 strict lib files and
+  none of either compiler's own, under both. Do not add an
+  `@typescript/lib-*` entry to `paths` — it is a second route to the same
+  place, and one that goes stale silently.
 - **`libReplacement` fails silently.** TypeScript falls back to its own
-  declarations with no diagnostic if the `paths` entry goes missing. That is
-  what `test/strict-lib-active.mts` is for: a `@ts-expect-error` that stops
+  declarations with no diagnostic if the links go missing. That is what
+  `test/strict-lib-active.mts` is for: a `@ts-expect-error` that stops
   compiling — `TS2578` — the moment the replacement stops happening. Do not
   delete it.
-- **`paths` is replaced, not merged, by a config that `extends` another.** Any
-  config declaring `paths` of its own has to repeat the `@typescript/lib-*`
-  entry. Two do today: `configs/tsconfig/tsconfig.type-check.json` and the root
-  `tsconfig.json`.
-- **Lint and type-check run different TypeScript versions and resolve the
-  replacement by opposite routes.** The type check runs `typescript-native`
-  (7.x), which reads `paths`; ESLint runs the `typescript` module (6.x), whose
-  lib lookup is a fixed Node10 resolution that ignores `paths` and asks for
-  `@typescript/lib-*` by name. `strict-ts-lib-v6.0` supplies those names: its
-  linker runs from the `prepare` script and writes one symlink per lib group
-  into `node_modules/@typescript/`. Without it ESLint would quietly lint
-  against TypeScript's own declarations and enforce less than the type check
-  does. The two lib sets are type-identical apart from four parameter names.
 - **The links have to be removed before the TypeScript version matrix.**
   TypeScript 5.0–5.7 have no `libReplacement` option and do the
   `@typescript/lib-*` lookup unconditionally, so the compatibility workflow
-  would compile a lib set written for TypeScript 6 with a 5.x compiler and
+  would compile declarations written for a later compiler with a 5.x one and
   fail on that rather than on anything this package ships. A consumer has no
   such names installed, which is what that workflow reproduces, so
   `typescript-version-compatibility.yml` runs
-  `pnpm exec strict-ts-lib-v6.0-link --unlink` first.
+  `pnpm exec strict-ts-lib-v7.0-link --unlink` first.
 - **`eslint.config.mts` is the one file kept on the stock library**, via
   `configs/tsconfig.eslint-config.json`. `@eslint/plugin-kit` ships its types
   as `dist/cjs/types.cts` — an implementation file, so `skipLibCheck` does not

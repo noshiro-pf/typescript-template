@@ -64,9 +64,7 @@
     // so any config defining `paths` of its own has to repeat this entry;
     // a missing entry disables the replacement with no diagnostic, which is
     // what `test/strict-lib-active.mts` exists to catch.
-    "paths": {
-      "@typescript/lib-*": ["../../node_modules/strict-ts-lib-v7.0/libs/*"]
-    },
+    "paths": {},
 
     // Completeness
     "skipLibCheck": true
