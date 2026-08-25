@@ -54,17 +54,11 @@
     "lib": ["ESNext", "DOM"],
 
     // The strict standard library, in place of TypeScript's own declarations.
-    // TypeScript 7 defaults `libReplacement` to false, so the `paths` entry
-    // below does nothing without it.
+    // Both TypeScript 6 and 7 default `libReplacement` to false, so the
+    // `@typescript/lib-*` links the `prepare` script writes do nothing without
+    // it. The replacement then fails silently if those links go missing, which
+    // is what `test/strict-lib-active.mts` exists to catch.
     "libReplacement": true,
-
-    // Every built-in library lives inside the one `strict-ts-lib-v7.0`
-    // package, so this wildcard is what points `libReplacement` at it.
-    // `paths` is replaced — not merged — by a config that `extends` another,
-    // so any config defining `paths` of its own has to repeat this entry;
-    // a missing entry disables the replacement with no diagnostic, which is
-    // what `test/strict-lib-active.mts` exists to catch.
-    "paths": {},
 
     // Completeness
     "skipLibCheck": true
