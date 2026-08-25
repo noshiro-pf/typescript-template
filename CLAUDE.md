@@ -45,9 +45,40 @@ are now maintained here and nowhere else.
 **Validation:**
 
 - `pnpm run cspell` — Run spell checking.
-- `pnpm run type-check` — TypeScript type checking (no emit).
+- `pnpm run type-check` — TypeScript type checking (no emit), against the
+  strict standard library. **See "The strict standard library" below.**
 - `pnpm run lint` / `pnpm run lint:fix` — Run ESLint check/fix.
 - `pnpm run check-all` — Run all checks (types, lint, tests, markdown, spellcheck).
+
+### The strict standard library
+
+`strict-ts-lib-v7.0` replaces TypeScript's built-in library declarations with
+stricter ones — `Number.isFinite` takes a `number` rather than an `unknown`,
+`Object.keys` returns the object's own keys rather than `string[]`,
+`Omit<T, K>` constrains `K` to `keyof T`, and so on.
+
+- **One package, one mechanism: a name.** The `prepare` script runs the
+  bundle's linker, which writes one symlink per lib group into
+  `node_modules/@typescript/`. Both compilers find it there — the type check
+  runs `typescript-native` (7.x) and ESLint runs the `typescript` module (6.x),
+  and each resolves a lib replacement as an ordinary package-name lookup once
+  `libReplacement` is on. Measured on this repository: 88 strict lib files and
+  none of either compiler's own, under both. Do not add an
+  `@typescript/lib-*` entry to `paths` — it is a second route to the same
+  place, and one that goes stale silently.
+- **`libReplacement` fails silently.** TypeScript falls back to its own
+  declarations with no diagnostic if the links go missing. That is what
+  `test/strict-lib-active.mts` is for: a `@ts-expect-error` that stops
+  compiling — `TS2578` — the moment the replacement stops happening. Do not
+  delete it.
+- **The links have to be removed before the TypeScript version matrix.**
+  TypeScript 5.0–5.7 have no `libReplacement` option and do the
+  `@typescript/lib-*` lookup unconditionally, so the compatibility workflow
+  would compile declarations written for a later compiler with a 5.x one and
+  fail on that rather than on anything this package ships. A consumer has no
+  such names installed, which is what that workflow reproduces, so
+  `typescript-version-compatibility.yml` runs
+  `pnpm exec strict-ts-lib-v7.0-link --unlink` first.
 
 **Formatting:**
 

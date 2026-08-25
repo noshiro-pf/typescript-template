@@ -53,6 +53,13 @@
 
     "lib": ["ESNext", "DOM"],
 
+    // The strict standard library, in place of TypeScript's own declarations.
+    // Both TypeScript 6 and 7 default `libReplacement` to false, so the
+    // `@typescript/lib-*` links the `prepare` script writes do nothing without
+    // it. The replacement then fails silently if those links go missing, which
+    // is what `test/strict-lib-active.mts` exists to catch.
+    "libReplacement": true,
+
     // Completeness
     "skipLibCheck": true
   }

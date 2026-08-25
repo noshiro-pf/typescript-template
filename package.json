@@ -63,6 +63,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "md": "markdownlint-cli2",
+    "prepare": "pnpm run z:link-strict-lib",
     "repo-settings:apply": "repo-settings apply",
     "repo-settings:backup": "repo-settings backup",
     "test": "pnpm run z:vitest:node run",
@@ -76,6 +77,7 @@
     "type-check": "node ./node_modules/typescript-native/bin/tsc --noEmit",
     "update-actions": "pnpm update --recursive --include-github-actions \"*/*\"",
     "update-packages": "pnpm update --latest --recursive",
+    "z:link-strict-lib": "strict-ts-lib-v7.0-link",
     "z:vitest": "vitest --config ./configs/vitest.config.mts",
     "z:vitest:node": "pnpm run z:vitest --project='Node.js'"
   },
@@ -116,6 +118,7 @@
     "rollup": "4.62.4",
     "rollup-plugin-esbuild": "6.2.1",
     "semantic-release": "25.0.9",
+    "strict-ts-lib-v7.0": "0.6.0",
     "ts-codemod-cli": "^1.0.1",
     "ts-codemod-lib": "3.0.1",
     "ts-data-forge": "14.4.0",
