@@ -45,9 +45,8 @@ are now maintained here and nowhere else.
 **Validation:**
 
 - `pnpm run cspell` — Run spell checking.
-- `pnpm run type-check` — TypeScript type checking (no emit). Two passes: the
-  project against the strict standard library, then `eslint.config.mts` against
-  TypeScript's own. **See "The strict standard library" below.**
+- `pnpm run type-check` — TypeScript type checking (no emit), against the
+  strict standard library. **See "The strict standard library" below.**
 - `pnpm run lint` / `pnpm run lint:fix` — Run ESLint check/fix.
 - `pnpm run check-all` — Run all checks (types, lint, tests, markdown, spellcheck).
 
@@ -80,12 +79,6 @@ stricter ones — `Number.isFinite` takes a `number` rather than an `unknown`,
   such names installed, which is what that workflow reproduces, so
   `typescript-version-compatibility.yml` runs
   `pnpm exec strict-ts-lib-v7.0-link --unlink` first.
-- **`eslint.config.mts` is the one file kept on the stock library**, via
-  `configs/tsconfig.eslint-config.json`. `@eslint/plugin-kit` ships its types
-  as `dist/cjs/types.cts` — an implementation file, so `skipLibCheck` does not
-  skip it — and it writes `Omit<CustomRuleTypeDefinitions, keyof Options>`,
-  which the strict `Omit` rejects. Nothing here can fix a `.cts` inside a
-  dependency.
 
 **Formatting:**
 

@@ -112,8 +112,8 @@ importers:
         specifier: 25.0.9
         version: 25.0.9(supports-color@7.2.0)(typescript@6.0.3)
       strict-ts-lib-v7.0:
-        specifier: 0.5.1
-        version: 0.5.1(typescript@6.0.3)
+        specifier: 0.6.0
+        version: 0.6.0(typescript@6.0.3)
       ts-codemod-cli:
         specifier: ^1.0.1
         version: 1.0.1(prettier@3.9.6)(supports-color@7.2.0)(typescript@6.0.3)
@@ -4061,11 +4061,11 @@ packages:
   stream-combiner2@1.1.1:
     resolution: {integrity: sha512-3PnJbYgS56AeWgtKF5jtJRT6uFJe56Z0Hc5Ngg/6sI6rIt8iiMBTa9cvdyFfpMQjaVHr8dusbNeFGIIonxOvKw==}
 
-  strict-ts-lib-v7.0@0.5.1:
-    resolution: {integrity: sha512-xbJo3tj1n8qqSsE/WxD+67tYuXMbeglG+HR6iEnuRmvMVTSOb7eHofhcuikUTn9KawHNL0AMjBBi41Ik3NkZxg==}
+  strict-ts-lib-v7.0@0.6.0:
+    resolution: {integrity: sha512-kXC1eFZEZzUxiXM8M9VOcLqmwH9yLd8DtgXjwBI00s+6NknQCugxgJ4tUuoVbbmv5R8MieGqud1fJo1Gu2j8LA==}
     hasBin: true
     peerDependencies:
-      typescript: '>=7.0.0 <7.1.0'
+      typescript: '>=6.0.0 <8.0.0'
 
   string-width@4.2.3:
     resolution: {integrity: sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==}
@@ -8752,7 +8752,7 @@ snapshots:
       duplexer2: 0.1.4
       readable-stream: 2.3.8
 
-  strict-ts-lib-v7.0@0.5.1(typescript@6.0.3):
+  strict-ts-lib-v7.0@0.6.0(typescript@6.0.3):
     dependencies:
       ts-type-forge: 9.2.1
       typescript: 6.0.3
