@@ -33,6 +33,12 @@ const checkAll = async (): Promise<void> => {
   });
 
   await logStep({
+    startMessage: 'Running test:scripts',
+    action: () => runCmdStep('pnpm run test:scripts', 'Script tests failed'),
+    successMessage: 'Script tests passed',
+  });
+
+  await logStep({
     startMessage: 'Running test:browser',
     action: () => runCmdStep('pnpm run test:browser', 'Browser tests failed'),
     successMessage: 'Browser tests passed',
